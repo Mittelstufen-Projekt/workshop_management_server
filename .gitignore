@@ -1,0 +1,6 @@
+*.exe
+.vs
+*.cache
+bin
+obj
+
