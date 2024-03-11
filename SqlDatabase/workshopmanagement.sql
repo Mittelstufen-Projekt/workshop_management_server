@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 11. Mrz 2024 um 08:55
+-- Erstellungszeit: 11. Mrz 2024 um 21:34
 -- Server-Version: 10.4.32-MariaDB
 -- PHP-Version: 8.2.12
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `inventory` (
-  `material_id` int(11) DEFAULT NULL,
+  `material_id` int(11) NOT NULL,
   `amount` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -125,7 +125,7 @@ INSERT INTO `project_material` (`id`, `project_id`, `material_id`, `amount`) VAL
 -- Indizes für die Tabelle `inventory`
 --
 ALTER TABLE `inventory`
-  ADD UNIQUE KEY `material_id` (`material_id`);
+  ADD PRIMARY KEY (`material_id`) USING BTREE;
 
 --
 -- Indizes für die Tabelle `material`
@@ -168,7 +168,7 @@ ALTER TABLE `material`
 -- AUTO_INCREMENT für Tabelle `project_material`
 --
 ALTER TABLE `project_material`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints der exportierten Tabellen
@@ -178,7 +178,7 @@ ALTER TABLE `project_material`
 -- Constraints der Tabelle `inventory`
 --
 ALTER TABLE `inventory`
-  ADD CONSTRAINT `inventory_ibfk_1` FOREIGN KEY (`material_id`) REFERENCES `material` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `inventory_ibfk_1` FOREIGN KEY (`material_id`) REFERENCES `material` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints der Tabelle `project_file`
@@ -190,8 +190,8 @@ ALTER TABLE `project_file`
 -- Constraints der Tabelle `project_material`
 --
 ALTER TABLE `project_material`
-  ADD CONSTRAINT `project_material_ibfk_1` FOREIGN KEY (`material_id`) REFERENCES `material` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `project_material_ibfk_2` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION;
+  ADD CONSTRAINT `project_material_ibfk_2` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION,
+  ADD CONSTRAINT `project_material_ibfk_3` FOREIGN KEY (`material_id`) REFERENCES `material` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
