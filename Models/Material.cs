@@ -7,13 +7,15 @@ public partial class Material
 {
     public int Id { get; set; }
 
-    public string? Name { get; set; }
+    public string Name { get; set; } = null!;
 
-    public string? Description { get; set; }
+    public string Description { get; set; } = null!;
 
-    public string? Type { get; set; }
+    public int TypeId { get; set; }
 
-    public virtual Inventory? Inventory { get; set; }
+    public int Amount { get; set; }
 
     public virtual ICollection<ProjectMaterial> ProjectMaterials { get; } = new List<ProjectMaterial>();
+
+    public virtual MaterialType Type { get; set; } = null!;
 }

@@ -1,0 +1,481 @@
+openapi: 3.0.3
+info:
+  title: Workshop Management Service
+  description: These should be the endpoints of the Workshop Management Service. Inventory holds the amount of one material, while ProjectMaterial holds Material amount of a material for a specific project. The amount of ProjectMaterial is not included in the total of a material amount. This has to be handled in the Backend.
+  termsOfService: http://swagger.io/terms/
+  version: 1.0.0
+paths:
+  /project:
+    put:
+      tags:
+        - Project
+      summary: Update a Project
+      description: Update an existing Project by Id
+      operationId: updateProject
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Project'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Project'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Project'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Project not found
+        '405':
+          description: Validation Exception
+    post:
+      tags:
+        - Project
+      summary: Add a new Project to the Service
+      description: Add a new Project to the service
+      operationId: addProject
+      requestBody:
+        description: Create a new Project
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Project'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Project'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Project'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '405':
+          description: Invalid input
+    get:
+      tags:
+        - Project
+      summary: Get all Projects
+      description: Gets all Projects
+      operationId: getProjects
+            
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+        '400':
+          description: Invalid status value
+        '405':
+          description: Invalid input
+  /project/findByName:
+    get:
+      tags:
+        - Project
+      summary: Find Project by String
+      description: Finds Projects by given String out of all Project Names
+      operationId: findProjectByName
+      parameters:
+        - name: name
+          in: query
+          description: String considered for filtering
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+            
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+        '400':
+          description: Invalid status value
+        '405':
+          description: Invalid input
+  
+  /project/{Id}:
+    get:
+      tags:
+        - Project
+      summary: Find Project by ID
+      description: Returns a single Project
+      operationId: getProjectById
+      parameters:
+        - name: Id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Project not found
+
+    delete:
+      tags:
+        - Project
+      summary: Deletes a Project
+      operationId: deleteProject
+      parameters:
+        - name: Id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '400':
+          description: Invalid id value 
+        '404':
+          description: Project not found
+          
+####################################################
+
+  /material:
+    put:
+      tags:
+        - Material
+      summary: Update a Material
+      description: Update an existing Material by Id
+      operationId: updateMaterial
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Material'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Material'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Material'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Material'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Material'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Material not found
+        '405':
+          description: Validation Exception
+    post:
+      tags:
+        - Material
+      summary: Add a new Material to the Service
+      description: Add a new Material to the service
+      operationId: addMaterial
+      requestBody:
+        description: Create a new Material
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Material'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Material'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Material'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Material'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Material'
+        '405':
+          description: Invalid input
+    get:
+      tags:
+        - Material
+      summary: Get all Materials
+      description: Gets all Material
+      operationId: getMaterial
+            
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Material'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Material'
+        '400':
+          description: Invalid status value
+        '405':
+          description: Invalid input
+  /material/findByName:
+    get:
+      tags:
+        - Material
+      summary: Find Material by String
+      description: Finds Materials by given String out of all Material Names
+      operationId: findMaterialByName
+      parameters:
+        - name: name
+          in: query
+          description: String considered for filter
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+            
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MaterialShort'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MaterialShort'
+        '400':
+          description: Invalid status value
+        '405':
+          description: Invalid input
+  
+  /material/{Id}:
+    get:
+      tags:
+        - Material
+      summary: Find Material by ID
+      description: Returns a single Material
+      operationId: getMaterialById
+      parameters:
+        - name: Id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Material'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Material'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Material not found
+
+    delete:
+      tags:
+        - Material
+      summary: Deletes a Material
+      operationId: deleteMaterial
+      parameters:
+        - name: Id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '400':
+          description: Invalid id value 
+        '404':
+          description: Material not found
+
+#############################################
+
+#############################################
+
+components:
+  schemas:
+    Project:
+      required:
+        - Id
+        - Name
+        - Client
+        - Describtion
+        - Startpoint
+        - Deadline
+        - Costs
+        - ProjectFile
+      type: object
+      properties:
+        Id:
+          type: integer
+          format: int64
+          example: 10
+        Name:
+          type: string
+          example: Esstisch
+        Client:
+          type: object
+          properties:
+            Id:
+              type: integer
+              format: int64
+            firstname:
+              type: string
+              example: Peter
+            lastname:
+              type: string
+              example: Lustig
+            phone: 
+              type: string
+              example: 01604361609
+        Description:
+          type: string
+          example: Eichen Esstisch mit Baumkante
+        Startpoint:
+          type: integer
+          example: 1710247712
+        Endpoint:
+          type: integer
+          example: 1710247890
+        EstimatedCosts:
+          type: integer
+          format: int64
+          example: 2000
+        Costs:
+          type: integer
+          format: int64
+          example: 1890
+        ProjectFile:
+          type: array
+          items:
+            type: object
+            properties:
+              Id:
+                type: integer
+                format: int64
+                example: 0
+              projectId:
+                type: integer
+                format: int64
+                example: 2
+              file:
+                type: string
+        ProjectMaterial:
+          type: array
+          items:
+            type: object
+            properties:
+              Id:
+                type: integer
+                format: int64
+              projectId:
+                type: integer
+                format: int64
+              materialId:
+                type: integer
+                format: int64
+              amount:
+                type: integer
+    
+    Material:
+      required:
+        - Id
+        - Name
+        - Describtion
+        - Type
+      type: object
+      properties:
+        Id:
+          type: integer
+          format: int64
+          example: 2
+        Name:
+          type: string
+          example: Spax Torx Schraube 4.5x6
+        Description:
+          type: string
+          example: Spax Torx Schraube 4.5x6 verzinkt
+        Type:
+          type: array
+          items:
+            type: object
+            properties:
+              Id:
+                type: integer
+                format: int64
+              name:
+                type: string
+              description:
+                type: integer
+                format: int64
+        Amount:
+          type: integer
+          format: int64
+          example: 100

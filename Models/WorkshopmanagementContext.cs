@@ -15,9 +15,11 @@ public partial class WorkshopmanagementContext : DbContext
     {
     }
 
-    public virtual DbSet<Inventory> Inventories { get; set; }
+    public virtual DbSet<Client> Clients { get; set; }
 
     public virtual DbSet<Material> Materials { get; set; }
+
+    public virtual DbSet<MaterialType> MaterialTypes { get; set; }
 
     public virtual DbSet<Project> Projects { get; set; }
 
@@ -34,23 +36,24 @@ public partial class WorkshopmanagementContext : DbContext
             .UseCollation("utf8mb4_general_ci")
             .HasCharSet("utf8mb4");
 
-        modelBuilder.Entity<Inventory>(entity =>
+        modelBuilder.Entity<Client>(entity =>
         {
-            entity.HasKey(e => e.MaterialId).HasName("PRIMARY");
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("inventory");
+            entity.ToTable("client");
 
-            entity.Property(e => e.MaterialId)
-                .ValueGeneratedNever()
+            entity.Property(e => e.Id)
                 .HasColumnType("int(11)")
-                .HasColumnName("material_id");
-            entity.Property(e => e.Amount)
-                .HasColumnType("int(11)")
-                .HasColumnName("amount");
-
-            entity.HasOne(d => d.Material).WithOne(p => p.Inventory)
-                .HasForeignKey<Inventory>(d => d.MaterialId)
-                .HasConstraintName("inventory_ibfk_1");
+                .HasColumnName("id");
+            entity.Property(e => e.Firstnamel)
+                .HasMaxLength(50)
+                .HasColumnName("firstnamel");
+            entity.Property(e => e.Lastname)
+                .HasMaxLength(50)
+                .HasColumnName("lastname");
+            entity.Property(e => e.Phone)
+                .HasMaxLength(13)
+                .HasColumnName("phone");
         });
 
         modelBuilder.Entity<Material>(entity =>
@@ -58,6 +61,35 @@ public partial class WorkshopmanagementContext : DbContext
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
             entity.ToTable("material");
+
+            entity.HasIndex(e => e.TypeId, "type_id");
+
+            entity.Property(e => e.Id)
+                .HasColumnType("int(11)")
+                .HasColumnName("id");
+            entity.Property(e => e.Amount)
+                .HasColumnType("int(11)")
+                .HasColumnName("amount");
+            entity.Property(e => e.Description)
+                .HasMaxLength(500)
+                .HasColumnName("description");
+            entity.Property(e => e.Name)
+                .HasMaxLength(100)
+                .HasColumnName("name");
+            entity.Property(e => e.TypeId)
+                .HasColumnType("int(11)")
+                .HasColumnName("type_id");
+
+            entity.HasOne(d => d.Type).WithMany(p => p.Materials)
+                .HasForeignKey(d => d.TypeId)
+                .HasConstraintName("material_ibfk_1");
+        });
+
+        modelBuilder.Entity<MaterialType>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+            entity.ToTable("material_type");
 
             entity.Property(e => e.Id)
                 .HasColumnType("int(11)")
@@ -68,9 +100,6 @@ public partial class WorkshopmanagementContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(100)
                 .HasColumnName("name");
-            entity.Property(e => e.Type)
-                .HasMaxLength(32)
-                .HasColumnName("type");
         });
 
         modelBuilder.Entity<Project>(entity =>
@@ -79,13 +108,15 @@ public partial class WorkshopmanagementContext : DbContext
 
             entity.ToTable("project");
 
+            entity.HasIndex(e => e.ClientId, "client_id");
+
             entity.Property(e => e.Id)
                 .ValueGeneratedNever()
                 .HasColumnType("int(11)")
                 .HasColumnName("id");
-            entity.Property(e => e.Client)
-                .HasMaxLength(100)
-                .HasColumnName("client");
+            entity.Property(e => e.ClientId)
+                .HasColumnType("int(11)")
+                .HasColumnName("client_id");
             entity.Property(e => e.Costs).HasColumnName("costs");
             entity.Property(e => e.Description)
                 .HasMaxLength(500)
@@ -100,6 +131,10 @@ public partial class WorkshopmanagementContext : DbContext
             entity.Property(e => e.Startpoint)
                 .HasColumnType("timestamp")
                 .HasColumnName("startpoint");
+
+            entity.HasOne(d => d.Client).WithMany(p => p.Projects)
+                .HasForeignKey(d => d.ClientId)
+                .HasConstraintName("project_ibfk_1");
         });
 
         modelBuilder.Entity<ProjectFile>(entity =>

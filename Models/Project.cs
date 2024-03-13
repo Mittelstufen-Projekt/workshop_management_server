@@ -9,7 +9,7 @@ public partial class Project
 
     public string? Name { get; set; }
 
-    public string? Client { get; set; }
+    public int ClientId { get; set; }
 
     public string? Description { get; set; }
 
@@ -20,6 +20,8 @@ public partial class Project
     public float? EstimatedCosts { get; set; }
 
     public float? Costs { get; set; }
+
+    public virtual Client Client { get; set; } = null!;
 
     public virtual ICollection<ProjectFile> ProjectFiles { get; } = new List<ProjectFile>();
 
