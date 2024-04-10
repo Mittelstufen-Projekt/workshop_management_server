@@ -28,6 +28,7 @@ public partial class WorkshopmanagementContext : DbContext
     public virtual DbSet<ProjectMaterial> ProjectMaterials { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseMySql("server=localhost;user=root;database=workshopmanagement", Microsoft.EntityFrameworkCore.ServerVersion.Parse("10.4.32-mariadb"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -45,9 +46,9 @@ public partial class WorkshopmanagementContext : DbContext
             entity.Property(e => e.Id)
                 .HasColumnType("int(11)")
                 .HasColumnName("id");
-            entity.Property(e => e.Firstnamel)
+            entity.Property(e => e.Firstname)
                 .HasMaxLength(50)
-                .HasColumnName("firstnamel");
+                .HasColumnName("firstname");
             entity.Property(e => e.Lastname)
                 .HasMaxLength(50)
                 .HasColumnName("lastname");
@@ -76,6 +77,7 @@ public partial class WorkshopmanagementContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(100)
                 .HasColumnName("name");
+            entity.Property(e => e.ThresholdValue).HasColumnType("int(11)");
             entity.Property(e => e.TypeId)
                 .HasColumnType("int(11)")
                 .HasColumnName("type_id");
@@ -122,13 +124,18 @@ public partial class WorkshopmanagementContext : DbContext
                 .HasMaxLength(500)
                 .HasColumnName("description");
             entity.Property(e => e.Endpoint)
+                .ValueGeneratedOnAddOrUpdate()
+                .HasDefaultValueSql("current_timestamp()")
                 .HasColumnType("timestamp")
                 .HasColumnName("endpoint");
             entity.Property(e => e.EstimatedCosts).HasColumnName("estimated_costs");
+            entity.Property(e => e.EstimatedHours).HasColumnName("estimatedHours");
             entity.Property(e => e.Name)
                 .HasMaxLength(100)
                 .HasColumnName("name");
             entity.Property(e => e.Startpoint)
+                .ValueGeneratedOnAddOrUpdate()
+                .HasDefaultValueSql("current_timestamp()")
                 .HasColumnType("timestamp")
                 .HasColumnName("startpoint");
 

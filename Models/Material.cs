@@ -15,6 +15,10 @@ public partial class Material
 
     public int Amount { get; set; }
 
+    public float Costs { get; set; }
+
+    public int ThresholdValue { get; set; }
+
     public virtual ICollection<ProjectMaterial> ProjectMaterials { get; } = new List<ProjectMaterial>();
 
     public virtual MaterialType Type { get; set; } = null!;
