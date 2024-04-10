@@ -13,5 +13,4 @@ public partial class Client
 
     public string Phone { get; set; } = null!;
 
-    public virtual ICollection<Project> Projects { get; } = new List<Project>();
 }

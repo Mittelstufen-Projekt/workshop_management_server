@@ -82,9 +82,7 @@ public partial class WorkshopmanagementContext : DbContext
                 .HasColumnType("int(11)")
                 .HasColumnName("type_id");
 
-            entity.HasOne(d => d.Type).WithMany(p => p.Materials)
-                .HasForeignKey(d => d.TypeId)
-                .HasConstraintName("material_ibfk_1");
+            
         });
 
         modelBuilder.Entity<MaterialType>(entity =>
@@ -139,9 +137,6 @@ public partial class WorkshopmanagementContext : DbContext
                 .HasColumnType("timestamp")
                 .HasColumnName("startpoint");
 
-            entity.HasOne(d => d.Client).WithMany(p => p.Projects)
-                .HasForeignKey(d => d.ClientId)
-                .HasConstraintName("project_ibfk_1");
         });
 
         modelBuilder.Entity<ProjectFile>(entity =>
@@ -163,9 +158,6 @@ public partial class WorkshopmanagementContext : DbContext
                 .HasColumnType("int(11)")
                 .HasColumnName("project_id");
 
-            entity.HasOne(d => d.Project).WithMany(p => p.ProjectFiles)
-                .HasForeignKey(d => d.ProjectId)
-                .HasConstraintName("project_file_ibfk_1");
         });
 
         modelBuilder.Entity<ProjectMaterial>(entity =>
@@ -191,14 +183,6 @@ public partial class WorkshopmanagementContext : DbContext
                 .HasColumnType("int(11)")
                 .HasColumnName("project_id");
 
-            entity.HasOne(d => d.Material).WithMany(p => p.ProjectMaterials)
-                .HasForeignKey(d => d.MaterialId)
-                .HasConstraintName("project_material_ibfk_3");
-
-            entity.HasOne(d => d.Project).WithMany(p => p.ProjectMaterials)
-                .HasForeignKey(d => d.ProjectId)
-                .OnDelete(DeleteBehavior.SetNull)
-                .HasConstraintName("project_material_ibfk_2");
         });
 
         OnModelCreatingPartial(modelBuilder);

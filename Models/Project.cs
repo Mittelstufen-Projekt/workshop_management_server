@@ -23,9 +23,4 @@ public partial class Project
 
     public float EstimatedHours { get; set; }
 
-    public virtual Client Client { get; set; } = null!;
-
-    public virtual ICollection<ProjectFile> ProjectFiles { get; } = new List<ProjectFile>();
-
-    public virtual ICollection<ProjectMaterial> ProjectMaterials { get; } = new List<ProjectMaterial>();
 }

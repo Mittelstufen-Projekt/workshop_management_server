@@ -11,5 +11,4 @@ public partial class ProjectFile
 
     public string File { get; set; } = null!;
 
-    public virtual Project Project { get; set; } = null!;
 }

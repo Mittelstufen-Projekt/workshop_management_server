@@ -13,7 +13,4 @@ public partial class ProjectMaterial
 
     public int Amount { get; set; }
 
-    public virtual Material Material { get; set; } = null!;
-
-    public virtual Project? Project { get; set; }
 }

@@ -19,7 +19,4 @@ public partial class Material
 
     public int ThresholdValue { get; set; }
 
-    public virtual ICollection<ProjectMaterial> ProjectMaterials { get; } = new List<ProjectMaterial>();
-
-    public virtual MaterialType Type { get; set; } = null!;
 }

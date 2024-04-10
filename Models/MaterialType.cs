@@ -11,5 +11,4 @@ public partial class MaterialType
 
     public string Description { get; set; } = null!;
 
-    public virtual ICollection<Material> Materials { get; } = new List<Material>();
 }
