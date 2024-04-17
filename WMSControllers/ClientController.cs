@@ -29,6 +29,7 @@ namespace WorkshopManagementServiceBackend.WMSControllers
         }
         
         [HttpGet]
+        [ProducesResponseType(typeof(List<Client>), 200)]
         public async Task<IActionResult> GetAll()
         {
             var result = await _Repository.GetAll();
@@ -36,6 +37,7 @@ namespace WorkshopManagementServiceBackend.WMSControllers
         }
         
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(Client), 200)]
         public async Task<IActionResult> GetById(int id)
         {
             var entry = await _Repository.Get(id);
@@ -43,10 +45,11 @@ namespace WorkshopManagementServiceBackend.WMSControllers
         }
         
         [HttpPut]
+        [ProducesResponseType(typeof(Client), 200)]
         public async Task<IActionResult> Update(Client client)
         {
-            _Repository.Update(client);
-            return Ok();
+            var entry = _Repository.Update(client);
+            return Ok(entry);
         }
     }
 }

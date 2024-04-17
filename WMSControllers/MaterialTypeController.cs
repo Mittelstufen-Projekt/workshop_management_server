@@ -29,12 +29,15 @@ namespace WorkshopManagementServiceBackend.WMSControllers
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(List<MaterialType>), 200)]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(_Repository.GetAll());
+            var list = await _Repository.GetAll();
+            return Ok(list);
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(Material), 200)]
         public async Task<IActionResult> GetById(int id)
         {
             var entry = await _Repository.Get(id);
@@ -42,10 +45,11 @@ namespace WorkshopManagementServiceBackend.WMSControllers
         }
 
         [HttpPut]
+        [ProducesResponseType(typeof(Material), 200)]
         public async Task<IActionResult> Update(MaterialType materialType)
         {
-            _Repository.Update(materialType);
-            return Ok();
+            var entry = await _Repository.Update(materialType);
+            return Ok(entry);
         }
     }
 }

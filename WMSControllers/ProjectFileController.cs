@@ -29,12 +29,25 @@ namespace WorkshopManagementServiceBackend.WMSControllers
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(List<ProjectFile>), 200)]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(_Repository.GetAll());
+            var list = await _Repository.GetAll();
+            return Ok(list);
+        }
+
+        [HttpGet("{projectId}")]
+        [ProducesResponseType(typeof(List<ProjectFile>), 200)]
+        public async Task<IActionResult> GetAllByProjectId(int projectId)
+        {
+            var result = await _Repository.GetAll();
+
+            var filteredFiles = result.Where(pm => pm.ProjectId == projectId).ToList();
+            return Ok(filteredFiles);
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(ProjectFile), 200)]
         public async Task<IActionResult> GetById(int id)
         {
             var entry = await _Repository.Get(id);
@@ -42,10 +55,11 @@ namespace WorkshopManagementServiceBackend.WMSControllers
         }
 
         [HttpPut]
+        [ProducesResponseType(typeof(ProjectFile), 200)]
         public async Task<IActionResult> Update(ProjectFile projectFile)
         {
-            _Repository.Update(projectFile);
-            return Ok();
+            var entry = await _Repository.Update(projectFile);
+            return Ok(entry);
         }
     }
 }

@@ -29,13 +29,25 @@ namespace WorkshopManagementServiceBackend.WMSControllers
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(List<Material>), 200)]
         public async Task<IActionResult> GetAll()
         {
             var result = await _Repository.GetAll();
             return Ok(result);
         }
 
+        [HttpGet("{typeId}")]
+        [ProducesResponseType(typeof(List<Material>), 200)]
+        public async Task<IActionResult> GetAllByTypeId(int typeId)
+        {
+            var result = await _Repository.GetAll();
+
+            var filteredMaterials = result.Where(pm => pm.TypeId == typeId).ToList();
+            return Ok(filteredMaterials);
+        }
+
         [HttpGet("{term}")]
+        [ProducesResponseType(typeof(List<Material>), 200)]
         public async Task<IActionResult> Find(string term)
         {
             var result = await _Repository.Find(term);
@@ -43,6 +55,7 @@ namespace WorkshopManagementServiceBackend.WMSControllers
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(Material), 200)]
         public async Task<IActionResult> GetById(int id)
         {
             var entry = await _Repository.Get(id);
@@ -50,6 +63,7 @@ namespace WorkshopManagementServiceBackend.WMSControllers
         }
 
         [HttpPut]
+        [ProducesResponseType(typeof(Material), 200)]
         public async Task<IActionResult> Update(Material material)
         {
             var entry = await _Repository.Update(material);

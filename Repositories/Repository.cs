@@ -46,6 +46,7 @@ namespace WorkshopManagementServiceBackend.Repository
         {
             return await _context.Set<E>().ToListAsync();
         }
+
         public async Task<ICollection<E>> Find(string term)
         {
             var entityType = typeof(E);
