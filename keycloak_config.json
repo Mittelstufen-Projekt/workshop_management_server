@@ -787,43 +787,7 @@
       }
     } ],
     "defaultClientScopes" : [ "web-origins", "acr", "profile", "roles", "email" ],
-    "optionalClientScopes" : [ "address", "phone", "offline_access", "microprofile-jwt" ],
-    "authorizationSettings" : {
-      "allowRemoteResourceManagement" : true,
-      "policyEnforcementMode" : "ENFORCING",
-      "resources" : [ {
-        "name" : "Default Resource",
-        "type" : "urn:workshop_client:resources:default",
-        "ownerManagedAccess" : false,
-        "attributes" : { },
-        "_id" : "bb685f79-3916-4bdd-bc4a-e26abbc21bcc",
-        "uris" : [ "/*" ]
-      } ],
-      "policies" : [ {
-        "id" : "cc6e6e72-b557-4e6f-99b3-62e15c9c5d9a",
-        "name" : "Default Policy",
-        "description" : "A policy that grants access only for users within this realm",
-        "type" : "js",
-        "logic" : "POSITIVE",
-        "decisionStrategy" : "AFFIRMATIVE",
-        "config" : {
-          "code" : "// by default, grants any permission associated with this policy\n$evaluation.grant();\n"
-        }
-      }, {
-        "id" : "0efbab13-a7c8-433d-8894-b8887f65fead",
-        "name" : "Default Permission",
-        "description" : "A permission that applies to the default resource type",
-        "type" : "resource",
-        "logic" : "POSITIVE",
-        "decisionStrategy" : "UNANIMOUS",
-        "config" : {
-          "defaultResourceType" : "urn:workshop_client:resources:default",
-          "applyPolicies" : "[\"Default Policy\"]"
-        }
-      } ],
-      "scopes" : [ ],
-      "decisionStrategy" : "UNANIMOUS"
-    }
+    "optionalClientScopes" : [ "address", "phone", "offline_access", "microprofile-jwt" ]
   } ],
   "clientScopes" : [ {
     "id" : "94d1839c-a58c-4fda-90fd-199dfe6306cb",
