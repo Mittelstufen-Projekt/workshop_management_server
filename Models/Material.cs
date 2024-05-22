@@ -4,6 +4,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WorkshopManagementServiceBackend.Models;
 
+/*
+ * Dies ist die Klasse welche beim scaffolden generiert wurde für den Table Material,
+ * es wurden ähnliche Änderungen wie bei Project vorgenommen.
+ */
 public partial class Material
 {
     [Required(ErrorMessage = "The MaterialId cannot be null.")]

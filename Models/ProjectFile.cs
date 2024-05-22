@@ -4,6 +4,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WorkshopManagementServiceBackend.Models;
 
+/*
+ * Dies ist die Klasse welche beim scaffolden generiert wurde für den Table ProjectFile,
+ * es wurden ähnliche Änderungen wie bei Project vorgenommen.
+ */
 public partial class ProjectFile
 {
     [Required(ErrorMessage = "The ProjectFileId cannot be null.")]

@@ -5,8 +5,8 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>C:\Users\Hendrik\WorkshopManagementServiceBackend\bin\Release\net7.0\publish\</_PublishTargetUrl>
-    <History>True|2024-03-12T07:40:35.6759555Z;True|2024-03-12T08:39:39.6048508+01:00;</History>
+    <_PublishTargetUrl>C:\Users\Hendrik\WorkshopManagementServiceBackend\ReleaseBuild</_PublishTargetUrl>
+    <History>True|2024-05-22T10:07:26.5945776Z;True|2024-05-22T11:45:50.9964502+02:00;True|2024-05-22T11:43:37.2406358+02:00;True|2024-05-22T11:28:31.2070619+02:00;True|2024-05-22T11:04:03.8201575+02:00;True|2024-05-22T10:41:16.9914722+02:00;True|2024-05-22T10:34:43.6895726+02:00;True|2024-05-22T10:32:30.8759757+02:00;True|2024-05-22T10:15:59.6396062+02:00;True|2024-05-22T10:09:53.8316078+02:00;True|2024-03-12T08:40:35.6759555+01:00;True|2024-03-12T08:39:39.6048508+01:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
 </Project>

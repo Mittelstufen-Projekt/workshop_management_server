@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 13. Mrz 2024 um 18:50
+-- Erstellungszeit: 21. Mai 2024 um 13:01
 -- Server-Version: 10.4.32-MariaDB
 -- PHP-Version: 8.2.12
 
@@ -29,10 +29,17 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `client` (
   `id` int(11) NOT NULL,
-  `firstnamel` varchar(50) NOT NULL,
+  `firstname` varchar(50) NOT NULL,
   `lastname` varchar(50) NOT NULL,
   `phone` varchar(13) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Daten für Tabelle `client`
+--
+
+INSERT INTO `client` (`id`, `firstname`, `lastname`, `phone`) VALUES
+(14, 'justin ', 'der huan', '463463');
 
 -- --------------------------------------------------------
 
@@ -73,12 +80,19 @@ CREATE TABLE `project` (
   `name` varchar(100) NOT NULL,
   `client_id` int(11) NOT NULL,
   `description` varchar(500) NOT NULL,
-  `startpoint` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `endpoint` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `startpoint` timestamp NOT NULL DEFAULT current_timestamp(),
+  `endpoint` timestamp NOT NULL DEFAULT current_timestamp(),
   `estimated_costs` float NOT NULL,
-  `costs` float NOT NULL,
-  `estimatedHours` float NOT NULL
+  `estimatedHours` float NOT NULL,
+  `costs` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Daten für Tabelle `project`
+--
+
+INSERT INTO `project` (`id`, `name`, `client_id`, `description`, `startpoint`, `endpoint`, `estimated_costs`, `estimatedHours`, `costs`) VALUES
+(0, 'VUyITLt8XbmTx7uBVpDwU6ZGjr6zLKIVkZWt8YuA1Hc2gLR5IKaP6PhZrGrNownlh9xTRXuQK', 14, 'Bj0mstPgp20BBLQ1kyhZ3R1.lRJnkrzkHY5tUCiULWHLqERrHgBVVjLuTiXgvbo5rQ79', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 10000000, 10000000, 10000000);
 
 -- --------------------------------------------------------
 
@@ -133,7 +147,7 @@ ALTER TABLE `material_type`
 --
 ALTER TABLE `project`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `client_id` (`client_id`);
+  ADD UNIQUE KEY `client_id` (`client_id`);
 
 --
 -- Indizes für die Tabelle `project_file`
@@ -158,19 +172,19 @@ ALTER TABLE `project_material`
 -- AUTO_INCREMENT für Tabelle `client`
 --
 ALTER TABLE `client`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT für Tabelle `material`
 --
 ALTER TABLE `material`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT für Tabelle `material_type`
 --
 ALTER TABLE `material_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT für Tabelle `project_material`
@@ -192,7 +206,7 @@ ALTER TABLE `material`
 -- Constraints der Tabelle `project`
 --
 ALTER TABLE `project`
-  ADD CONSTRAINT `project_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `client` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `project_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `client` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints der Tabelle `project_file`

@@ -4,15 +4,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WorkshopManagementServiceBackend.Models;
 
+/*
+ * Dies ist die Context Klasse der Api, welche verwendet wird um auf die Datenbank zuzugreifen. 
+ * WorkshopmanagementContext implementiert die DbContext Klasse um deren Methoden nutzen zu können.
+ * Die Klasse hat außerdem eine ILoggerFactory um das Debugging zu vereinfachen.
+ * In WorkshopmanagementContext müssen alle Datenbank Tables als DbSet Propertie definiert sein.
+ * OnModelCreating wurde automatisch beim scaffolden erzeugt. Musste aber verändert werden, da Table Beziehungen 
+ * in Form von Listen für das jeweilige Model erzeugt wurden, dies erzeugt allerdings einen zu großen Overhang.
+ */
 public partial class WorkshopmanagementContext : DbContext
 {
-    public WorkshopmanagementContext()
-    {
-    }
+    private readonly ILoggerFactory _loggerFactory;
 
-    public WorkshopmanagementContext(DbContextOptions<WorkshopmanagementContext> options)
+    public WorkshopmanagementContext(DbContextOptions<WorkshopmanagementContext> options, ILoggerFactory loggerFactory)
         : base(options)
     {
+        _loggerFactory = loggerFactory;
     }
 
     public virtual DbSet<Client> Clients { get; set; }
@@ -28,9 +35,9 @@ public partial class WorkshopmanagementContext : DbContext
     public virtual DbSet<ProjectMaterial> ProjectMaterials { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySql("server=localhost;user=root;database=workshopmanagement", Microsoft.EntityFrameworkCore.ServerVersion.Parse("10.4.32-mariadb"));
-
+    {
+        optionsBuilder.UseLoggerFactory(_loggerFactory);
+    }       
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder
@@ -122,7 +129,7 @@ public partial class WorkshopmanagementContext : DbContext
                 .HasMaxLength(500)
                 .HasColumnName("description");
             entity.Property(e => e.Endpoint)
-                .ValueGeneratedOnAddOrUpdate()
+                /*.ValueGeneratedOnAddOrUpdate()*/
                 .HasDefaultValueSql("current_timestamp()")
                 .HasColumnType("timestamp")
                 .HasColumnName("endpoint");
@@ -132,7 +139,7 @@ public partial class WorkshopmanagementContext : DbContext
                 .HasMaxLength(100)
                 .HasColumnName("name");
             entity.Property(e => e.Startpoint)
-                .ValueGeneratedOnAddOrUpdate()
+                /*.ValueGeneratedOnAddOrUpdate()*/
                 .HasDefaultValueSql("current_timestamp()")
                 .HasColumnType("timestamp")
                 .HasColumnName("startpoint");

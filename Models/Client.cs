@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace WorkshopManagementServiceBackend.Models;
-
+/*
+ * Dies ist die Klasse welche beim scaffolden generiert wurde für den Table Client,
+ * es wurden ähnliche Änderungen wie bei Project vorgenommen.
+ */
 public partial class Client
 {
     [Required(ErrorMessage = "The ClientId cannot be null.")]

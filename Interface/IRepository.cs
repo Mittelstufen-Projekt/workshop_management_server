@@ -4,7 +4,10 @@ using WorkshopManagementServiceBackend.Models;
 
 namespace WorkshopManagementServiceBackend.Interface
 {
-    public interface IRepository<T>
+    /*
+     * Interface für das Repository (Repository Pattern), es enthält alle grundlegenden Methoden und ist zudem generisch. 
+     */
+    public interface IRepository<T> 
     {
         Task<ICollection<T>> GetAll();
         Task<T> Get(int id);
